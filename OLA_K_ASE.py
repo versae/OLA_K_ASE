@@ -7,6 +7,7 @@ import sys
 
 # Stateless encoder/decoder
 LOWER_CHARS = set(string.lowercase)
+OLA_K_ASE_CODEC = 'OLA_K_ASE'
 
 
 class InvertCapsCodec(codecs.Codec):
@@ -25,9 +26,9 @@ class InvertCapsCodec(codecs.Codec):
 def find_ola_k_ase(encoding):
     """Return the codec for 'OLA_K_ASE'.
     """
-    if encoding.upper() == 'OLA_K_ASE':
+    if encoding.upper() == OLA_K_ASE_CODEC:
         return codecs.CodecInfo(
-            name='OLA_K_ASE',
+            name=OLA_K_ASE_CODEC,
             encode=InvertCapsCodec().encode,
             decode=InvertCapsCodec().decode,
         )
@@ -43,6 +44,8 @@ if __name__ == "__main__":
                         default=sys.stdin)
     args = parser.parse_args()
     text = args.infile[0].read()
-    encoder = codecs.getencoder('OLA_K_ASE')
+    encoder = codecs.getencoder(OLA_K_ASE_CODEC)
     encoded_text, consumed = encoder(text)
+    print "OLA K ASE"
     exec encoded_text
+    print "O K ASE"
